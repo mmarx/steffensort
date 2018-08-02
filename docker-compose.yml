@@ -6,7 +6,7 @@ services:
     ports:
       - "3000-3000"
     links:
-      - db
+      - db:mysql
     depends_on:
       - db
     environment:
@@ -14,8 +14,8 @@ services:
       - MYSQL_PASSWORD=steffensort
       - MYSQL_HOST=db
     networks:
-      - frontend
       - backend
+      - frontend
   db:
     image: mariadb:latest
     networks:

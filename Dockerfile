@@ -25,12 +25,12 @@ RUN cmake -H/opt/clingo-src -B/opt/clingo-build -DCMAKE_BUILD_TYPE=release -DCMA
 FROM fpco/stack-build:latest as stack
 
 WORKDIR /opt/steffensort
-COPY package.yaml .
-COPY stack.yaml .
+COPY backend/package.yaml .
+COPY backend/stack.yaml .
 RUN stack build --only-dependencies
 
-COPY . .
-RUN stack install --local-bin-path /opt/steffensort/bin
+COPY backend/ .
+RUN stack install --local-bin-path /opt/steffensort
 
 FROM debian:sid-slim as run
 
@@ -40,12 +40,13 @@ RUN apt-get update && \
     rm -rf /var/lib/lists
 
 COPY --from=clingo /opt/clingo /opt/clingo
-COPY --from=stack /opt/steffensort/bin /opt/steffensort/bin
+COPY --from=stack /opt/steffensort/steffensort /opt/steffensort
 
-ENV PATH $PATH:/opt/clingo/bin:/opt/steffensort/bin
+ENV PATH $PATH:/opt/clingo/bin:/opt/steffensort/
 
 WORKDIR /opt/steffensort/
-COPY static static
+COPY backend/static static
+COPY backend/config config
 
 EXPOSE 3000
-CMD sleep 30 && /opt/steffensort/bin/steffensort
+CMD sleep 10 && /opt/steffensort/steffensort
