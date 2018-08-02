@@ -1,12 +1,12 @@
 -- By default this file is used by `persistFileWith` in Model.hs (which is imported by Foundation.hs)
 -- Syntax for this file here: https://github.com/yesodweb/persistent/blob/master/docs/Persistent-entity-syntax.md
 
-User
+User json
     ident Text sqltype=varchar(255)
     password Text Maybe sqltype=varchar(255) default=NULL
     UniqueUser ident
     deriving Typeable
-Email
+Email json
     email Text sqltype=varchar(255)
     userId UserId Maybe sqltype=varchar(255) default=NULL
     verkey Text Maybe sqltype=varchar(255) default=NULL
@@ -16,3 +16,45 @@ Comment json -- Adding "json" causes ToJSON and FromJSON instances to be derived
     userId UserId Maybe sqltype=varchar(255) default=NULL
     deriving Eq
     deriving Show
+
+Conference json
+    tag Text sqltype=varchar(255)
+    begin UTCTime
+    end UTCTime
+    locationId LocationId
+
+Location json
+    name Text sqltype=varchar(255)
+    address Text
+
+Room json
+    locationId LocationId
+    tag Text sqltype=varchar(255)
+
+Slot json
+    conferenceId ConferenceId
+    begin UTCTime
+    end UTCTime
+
+RoomAvailability json
+    roomId RoomId
+    slotId SlotId
+
+ItemType json
+    tag Text sqltype=varchar(255)
+    description Text
+    exclusive Bool
+
+ItemTypeExclusion json
+    itemTypeId ItemTypeId
+    notWithTypeId ItemTypeId
+
+Item json
+     tag Text sqltype=varchar(255)
+     uri Text sqltype=varchar(255)
+     itemTypeId ItemTypeId
+     conferenceId ConferenceId
+
+ItemExclusion json
+     itemId ItemId
+     notWithId ItemId
