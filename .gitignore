@@ -20,3 +20,25 @@ cabal.sandbox.config
 *~
 \#*
 steffensort.cabal
+
+# compiled output
+frontend/dist
+frontend/tmp
+frontend/out-tsc
+
+# dependencies
+frontend/node_modules
+
+# misc
+frontend/.sass-cache
+frontend/connect.lock
+frontend/coverage
+frontend/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+frontend/typings
+
+# System Files
+.DS_Store
+Thumbs.db
