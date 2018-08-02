@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  app:
+    build: .
+    image: steffensort:latest
+    ports:
+      - "3000-3000"
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=steffensort
+      - MYSQL_HOST=db
+    networks:
+      - frontend
+      - backend
+  db:
+    image: mariadb:latest
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=steffensort
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

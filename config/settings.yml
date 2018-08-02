@@ -31,7 +31,7 @@ ip-from-header: "_env:IP_FROM_HEADER:false"
 database:
   user:     "_env:MYSQL_USER:steffensort"
   password: "_env:MYSQL_PASSWORD:steffensort"
-  host:     "_env:MYSQL_HOST:localhost"
+  host:     "_env:MYSQL_HOST:db"
   port:     "_env:MYSQL_PORT:5432"
   # See config/test-settings.yml for an override during tests
   database: "_env:MYSQL_DATABASE:steffensort"
