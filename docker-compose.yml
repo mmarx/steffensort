@@ -4,7 +4,7 @@ services:
     build: .
     image: steffensort:latest
     ports:
-      - "3000-3000"
+      - "3000:3000"
     links:
       - db:mysql
     depends_on:
@@ -21,6 +21,9 @@ services:
     networks:
       - backend
     environment:
+      - MYSQL_USER=steffensort
+      - MYSQL_PASSWORD=steffensort
+      - MYSQL_DATABASE=steffensort
       - MYSQL_ROOT_PASSWORD=steffensort
 
 networks:

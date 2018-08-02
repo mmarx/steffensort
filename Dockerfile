@@ -30,7 +30,7 @@ COPY backend/stack.yaml .
 RUN stack build --only-dependencies
 
 COPY backend/ .
-RUN stack install --local-bin-path /opt/steffensort
+RUN stack install --local-bin-path /opt/steffensort/
 
 FROM debian:sid-slim as run
 
@@ -39,8 +39,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/lists
 
-COPY --from=clingo /opt/clingo /opt/clingo
-COPY --from=stack /opt/steffensort/steffensort /opt/steffensort
+COPY --from=clingo /opt/clingo /opt/clingo/
+COPY --from=stack /opt/steffensort/steffensort /opt/steffensort/
 
 ENV PATH $PATH:/opt/clingo/bin:/opt/steffensort/
 
